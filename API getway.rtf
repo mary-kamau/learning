@@ -1,0 +1,42 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2636
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\fswiss\fcharset0 Helvetica-Bold;}
+{\colortbl;\red255\green255\blue255;\red199\green200\blue201;\red26\green28\blue31;}
+{\*\expandedcolortbl;;\cssrgb\c81961\c82353\c82745;\cssrgb\c13333\c14510\c16078;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww11520\viewh8400\viewkind0
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 Making Requests to API GETWAY FROM individual containers.   The API Getway is NginX\
+To send it data to store and to retrieve the data from the Database, \
+\
+\
+PROBLEM STATEMENT\
+\
+Having developed application locally and it runs on a specific port. When it comes to putting the application on big servers such as AWS EC2, Heroic, Digital Ocean.\
+In that system you have spin of a machine probably in ubuntu, centos and have installed database in it, deployed the application in it and it\'92s running like it would in the local machine.\
+\
+You spin of the machine(npm start, django run) or 
+\f1\b\fs30 \cf2 \cb3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 docker run -d -p 5000:5000 facebook
+\f0\b0\fs24 \cf0 \cb1 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 \
+While running the application, and it starts gaining a lot of traffic on that port (5000)\
+\
+The next step would be to run another instance of the application (not an issue since they use the same database)\
+\
+With increasing traffic many instances and ports will need to be made, user is confused.\
+Nginx serves as. A getway in which the users can  communicate with the application. \
+Nginx takes requests from the users and whenever the application is serving it will talk to NginX.\
+It manages the load to check which server is having minimum amount of load and redirects the requests to that post.\
+\
+To employ this smartly you can dedicate an instance to handle only that route.(Facebook Ads)\
+When adding content  to a resource that will generate a lot of traffic and is served on a particular route. NginX can load up a cache to store all the requests for that route so it doesn\'92t need to communicate with the db all the time and can send requests much faster since it\'92s not talking to the db and entire infrastructure again and again.\
+\
+Check Configuration \
+\
+\
+\
+\
+\
+\
+\
+\
+}

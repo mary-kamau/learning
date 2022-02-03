@@ -1,0 +1,29 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2636
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww14300\viewh8400\viewkind0
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 Deployment is taking the code from the version control system and putting it in the QA, Stage and Production.\
+\
+QA - to test \
+Stage- for users to test (User Acceptance stage)\
+Production - formal users to use\
+Typically one doesn\'92t take the code and do this.\
+ We build a deployable component e.g v.a.r, e.a.r or j.a.r\
+\
+Deployment involves configuring which web services you\'92d like to talk to.\
+The web services to be used in development might be different from the ones used in QA,Stage, Production.\
+You need to configure the application to connect to the right external things/web services.\
+\
+One is your deployable artefact (J.A.R or E.A.R) will not change between QA, Stage  and production.\
+\
+But the configuration of each will be different, The web service you communicate with in production will be different from the web service you\'92ll be communicating with in development.\
+\
+Consider which database the environment is connecting to and is updated with new schema.\
+\
+It involves deploying your artefact making sure the application is configured right, making sure you have the database upgraded etc.\
+ In most enterprises the process of deployment is automated and in some it\'92s part of the CI/CD build.\
+      So have the dockerization process  happen in CI/CD file as well.\
+}

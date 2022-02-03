@@ -1,0 +1,148 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2636
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\fswiss\fcharset0 Helvetica-Bold;}
+{\colortbl;\red255\green255\blue255;\red252\green41\blue19;\red252\green90\blue64;\red0\green0\blue0;
+\red252\green117\blue255;\red251\green0\blue7;\red255\green255\blue11;\red251\green0\blue7;}
+{\*\expandedcolortbl;;\cssrgb\c100000\c25745\c7993;\cssrgb\c100000\c44604\c31621;\cssrgb\c0\c0\c0;
+\cssrgb\c100000\c56882\c100000;\cssrgb\c100000\c12195\c0;\cssrgb\c100000\c100000\c0;\cssrgb\c100000\c12195\c0;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww11520\viewh8400\viewkind0
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 Kubernetes is a portable, extensible platform for managing containerized services and workloads.\
+Portable- read and writes its configuration settings into an accessible folder in the computer, usually the folder where the portable application can be found.\
+Facilitiates declarative configurations and automation.\
+\
+\
+When Kubernetes is deployed, one gets a cluster. A cluster contains a set of worker machines called nodes to run containeried applications.\
+\
+Helps manage containerised applications in different deployment environments.\
+\
+KUBERNETES ARCHITECTURE\
+\
+Cluster is made up of one master node\
+     Node is a virtual or physical machine \
+    Master ndode is connected to a couple of worker nodes where each node has a kubelet process running in it.\
+Kubelet is a kubernetes process that makes it for the cluster to communicate to each other and execute tasks in the nodes like running the application processes\
+\
+                                                             ___________\
+                                                             |                     |\
+                                                             |                     |\
+                                                             |                     |\
+                                                             |\'85\'85\'85\'85\'85\'85|\
+\
+                    |                 |.          |              |\
+                    |                 |           |              |\
+                    |                 |           |              |\
+                    |.                |           |              |\
+Each worker node has containers of different applications deployed on it. Applications are running on worker nodes.The master node runs kubernetes process that run and manage the cluster properly. \
+
+\f1\b \cf2 MASTER NODE
+\f0\b0 \cf0 \
+     -
+\f1\b\fs28  API Server 
+\f0\b0\fs24 which is the entry point to the kubernetes cluster\
+              - This is the process that the different kubernetes process will talk to , e.g the:\
+                API server   -    which is an entry point to the kube cluster and is a container\
+                        This is the process that the different kubernetes clients will talk to.\
+                                cClients such as :\
+                                                   UI for cabernets dashboard\
+                                                   API if one is using scripts and automated technology \
+                                                   CLI (kubectl)\
+     -
+\f1\b\fs28 Controller Manager\
+          
+\f0\b0\fs24 Keeps track of what\'92s happening in the cluster e.g something needs to be repaired or if a container      died and needs to be restarted etc\
+     
+\f1\b\fs28 -Scheduler\
+            
+\f0\b0\fs24  Schedules containers on different nodes based on workload and the available server resources on each node\
+    
+\f1\b\fs28 -ETCD Key Value Storage\
+         
+\f0\b0\fs24 Holds at any time the current state of the kubernetes cluster \
+           Has configuration and status data of each node and container in the master node.\
+           Makes backup and restore since one can recover the cluster state through the etc snapshot\
+\
+If you loose access to the master node you will not be able to access the cluster anymore. Thus is best to have a back up of the master at any time. E.g two or more masters in production environment\
+
+\f1\b\fs26 \cf3 VIRTUAL NETWORK\
+
+\f0\b0\fs24 \cf4 Enables worker and master nodes to communicate. Spuns all the nodes that are part of the cluster. Turns all nodes in the cluster into one powerful machine that has the sum of all the resources of individual nodes.\
+Worker nods have more resources since they handle Manny containers inside of them.\
+\
+\
+
+\f1\b \cf5 MAIN KUBERNETES COMPONENTS\
+     \cf6 Pods           ConfigMap.               StatefulSet\
+     Service       Secret\
+     Ingress       Deployment               DaemonSet\
+\
+Node and Pods\
+
+\f0\b0 \cf4 The smallest unit in kubernetes is a pod. It is an abstraction over a container. Creates a running environment/layer over the container. So that kuberntes can abstract away container runtime with container technologies so that one can replace them if they want it.\
+Pode has one application container at a time.\
+Each pod gets its own IP address and each pod can communicate with each other using that IP address, this is an internal IP address\
+Pod components are ephemeral, they can die very easy. They are automatically replaced though the IP address changes, thus its important to have a service.\
+\
+
+\f1\b \cf6 Service and Ingress
+\f0\b0 \cf4 \
+Service is a permanent IP address attached to each pod.\
+The lifecycle of the service and the pod are not connected so even if the pod dies, the service and its IP address will stay.\
+ For the application to be available through the browser, crate an EXTERNAL SERVICE, the service that opens communication from external sources.\
+An internal service is created for items not to be viewed by public, e.g db\
+\
+\cf7     Ingress\
+    \cf4 Url is secure (https:my-app.com) request is made to ingress which then connects to the service\cf7 \
+
+\f1\b \cf6 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf8 ConfigMap and Secret\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\b0 \cf4 Pods communicate to each other using a service.\
+Config map his the external configut=ration to the application. iT contains configuration data such as url of the database or other services you use, in cabernets, connect it to the pod so that pod gets the data the configmap contains.\
+\
+ \cf7     Secret 
+\f1\b \cf6 \
+
+\f0\b0 \cf4 Used to store secret data such as database users and password in base-64 encoded format. Encrypted using third party tools
+\f1\b \cf6 \
+
+\f0\b0 \cf4  Contains credentials, passwords, certificates. Connect it to the pod so pod can see data and use \
+\
+
+\f1\b \cf6 Volume\
+
+\f0\b0 \cf4 Attaches a physical storage on a hard rive to your pod, this storage could be on a locally machine on the same server node where the pod is running or on a remote storage outside the kubernetes cluster e.g cloud storage that is not part of the cabernets cluster. You then reference this.\
+\
+
+\f1\b\fs26 \cf6 Deployment and StatefulSet\
+
+\f0\b0\fs24 \cf4 Is a blueprint for the applications.\
+Database can\'92t be replicated with deployment. Instead shouldd be replicated with stageful set.\
+\
+
+\fs26 \cf6 KUBERNETES CONFIGURATION
+\fs24 \cf4 \
+All configuration in kubernetes cluster goes through a master node in the process known as API Server.\
+kUBERENETES CLIENTS talk to the API server and send their configuration requests to the API server.\
+The requests are in yaml or json format. For example making a request to the cluster to configure a component called deployment(blueprint for creating pods)\
+\
+Each configuration file has 3 pats, :\
+      Metadata\
+      Specification\
+      Status\
+\
+\
+
+\f1\b \cf5 \
+\cf0 \
+
+\f0\b0  
+\f1\b\fs28 \
+              \
+
+\f0\b0\fs24 \
+\
+                                                       \
+                    }

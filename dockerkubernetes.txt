@@ -1,0 +1,190 @@
+
+
+Platform for building running and shipping applications in a consistent manner. If application runs on development machine it can run and function the same way in other machines.
+
+Docker Automatically installs and runs the application through containers.
+each application runs with its dependencies inside an isolated environment you can safely remove an application to clean up the machine.
+
+Consistently build, run and ship applications.
+
+
+
+WHY DO YOU NEED IT?
+    Ensures compatibility of services with the operating system libraries and dependencies
+    Reduces set up time
+    different dev/test/prod environment
+
+CONTAINERIZE APPLICATIONS
+    RUN EACH SERVICE IN ITS OWN DEPENDANCIES IN SEPARATE CONTAINERS
+    Enables you to run each component on a separate container with its own libraries and dependencies
+      all in the same virtual machines or OS but all in separate containers.
+      The docker configurtion is built only once and all the developers can start with a simple docker command.
+      irrespective of what OS they have all they have to do is install docker on their system
+
+WHAT ARE CONTAINERS?
+    CONTAINERS ARE COMPLETELY ISOLATED ENVIRONMENTS
+       Can have their own processes, network interfaces and mounts, however they all share the same 
+         OS Kernel.
+       Docker is used to package and containerize applications and to ship and run them anywhere 
+        anytime as many times as one wants.
+
+    CONTAINERS vs VIRTUAL MACHINES
+
+        CONTAINERS
+        One can run multiple applications in isolation.
+        Are lightweight.
+        All containers on a single machine share the OS of the host thus we need to licence, hash and monitor a single OS.
+        Starts up quickly since the OS has already started ion the host.
+        Need less hardware resources thus on a single host one can run 10/100s of containers side by side.
+        
+        Less utilization of resoures since its one OS.
+        Consumes lower disk space in MB.
+        Takes a few seconds to boot up.
+        Containers are less isolated as they share resources such as the kernel.
+
+
+                         CONTAINERS             CONTAINERS
+                      _________________       _______________
+                      |  APPLICATIONS  |      | APPLICATIONS |
+                      | LIBS   DEPS    |      |  LIBS   DEPS |
+                      __________________      ________________
+                                 \              /
+                                       DOCKER
+                                         |
+                                         OS
+                                         |
+                                HARDWARE INFRASTRUCTURE
+
+
+
+VIRTUAL MACHINES
+    A virtual machine is an  abstraction of actual machine hardware or physical hardware.          You can run several virtual machine on the same hardware. For example a Mac running two             virtual machines. e.g I'm running ubuntu on my windows.
+This is all enabled by a hypervisor, this is software used to create and manage virtual machines. e.g VirtualBox and VMware which are cross platform and run on windows, macOS and linux and HyperV which works for windows only.
+
+    BENEFITS OF VIRTUAL MACHINES.
+    Run applications in isolation inside virtual machines. 	In the same computer one can have different virtual machines each running different applications and each with the exact dependencies it needs for its functioning.
+
+        Each Virtual machine has its on OS THRN THE DEPENDENCIES THEN THE APPLICATION
+
+                       VIRTUAL MACHINE      VIRTUAL MACHINE                   
+                       _________________       _______________
+                      |  APPLICATIONS  |      | APPLICATIONS |
+                      | LIBS   DEPS    |      |  LIBS   DEPS |
+                      |      OS        |            OS
+                      __________________      ________________       
+                                     \         /
+                                     HYPERVISOR
+                                          |
+                                HARDWARE INFRASTRUCTURE
+PROBLEMS
+Overhead causes maximum utilization of resources since there are multiple operating systems and kernels running
+Consumes higher disk space as each VM is heavy and is in GB size
+    Takes longer minutes to boot up since it loads the OSs as well
+    VMs are completely isolated and ucd ..
+    se differentresources including the kernel thus one can run diff applications on the same hypervisor
+
+With large environments and thousands of application containers running on thousands of docker hosts, youll find containers provisioned 
+on virtual docker hosts that way we can use virtualization to easily provision docker hosts and use the benefits of docker to
+easily provision and scale applications as required. However, we will not be provisioning that many virtual machines as before(provisioning virtual machines for each containers,
+will now provision virtual machines for each application) now will provision virtual machine for hundreds of thousands of containers.
+
+
+
+HOW IS IT DONE?
+        There are lots of containerized versions of applications readily available in DOCKER HUB/DOCKER STORE
+
+DIFFERENCES Between containers and images
+    An IMAGE is a package or a template USED TO CREATE ONE OR MORE CONTAINERS.
+    A CONTAINER is a running instance of image that are isolated and running.
+  
+
+DOCKER ARCHITECTURE
+Uses Client Server Architecture. It has a Client component that communicates to the Server Component using a REST API. 
+The Server (Docker Engine) sits at the background and builds and runs docker containers.
+A container is just a process like other computer processes.
+All containers in a host share its Os i.e its OS kernel(kernel manages applications and hardware resources e.g memory and CPU).
+Every Os has its own Kernel/Engine each of which has its own APIs. Thus can't run Windows application on linux since this application needs to talk to the kernel of the underlying operating system.
+On a Linux machine we can only run linux containers since they need Linux.
+On windows machine e.g Windows 10 one can run both Windows and Linux containers since Windows 10 is shipped with a linux kernel in addition to the windows kernel.
+Mac's kernel is different from both windows and linux that does not support containerised applications.
+Docker on Mac uses a lightweight Linux Virtual Machine to run linux containers.
+
+DEVELOPMENT WORKFLOW
+Pick an application and dockerize it(make a small change so that it ca be run by Docker)
+This is by adding a DockerFile. 
+This is a plain text file that contains instructions that Docker uses to package an application into an image.
+
+This image contains everything the application needs to run:
+    - A cut down OS
+    - A runtime environment(e.g Node or Python)
+    - Application files
+    - Third-party libraries 
+    - Environment variables
+
+A DockerFile is created and given to Docker so it can package an application into an image. 
+Once an Image is made, we tell Docker to start a Container using that image.
+A Container is a special type of process since it has it's on file system provided by the image.
+The application gets loaded inside a container/ process thus is ran locally in our development machine.
+Once the image is created it can be pushed to a docker registry like DockerHub/Gitlab Registry( a storage for images that anyone can use).
+Once its on DockerHub it can be pulled to any machine running Docker. This machine will have the same image we have on ur development machine which contains a specific version of our application with everything it needs.
+
+DOCKER IN ACTION
+
+First start with a base image, this base image has a bunch of files, which we'll take and add files too.
+
+
+                                    REGISTRY                                                               
+       
+              DEV                                         TEST/PROD
+    
+
+DOCKERIZING FLASK APP
+Take Existing Flask Application and create a Docker container out of it.
+1.In Docker image
+   Install python3
+   install pip3
+   copy source code(take flask app and put inside Docker Image)
+   iNSTALL PYTHON MODULES (PIP3 INSTALL -R REQUIREMENTS.TXT)
+   EXPOSE A port in docker image so others can access the docker images or container
+   make container executable so that when they're being created with the docker image they are                 executable thus can run and do some processing
+
+2.Take initial base docker image and flask app and make a new docker image so we can ship it to a Registry.
+
+KUBERENETES
+To deploy applications scalably we use docker, to deploy the application successfully and scalable we use Kubernetes.
+
+Problem Statement
+With many users using your applications and making multiple requests to it, the application can crush due to many number of hits on the application.
+
+Solution
+Use Kubernetes to create multiple instances of the application. It has a load balancer such that users using the application do not directly access the url of the application instead their request will call the load balancer which will distribute the number of hits to the multiple instances such that kubernetes scalably serves the application so even if one instance of the application crashes, 	kubernetes instantly creates a new instance of the application.
+
+
+
+
+
+
+
+
+
+
+
+
+
+RUN DOCKER CONTAINERS
+
+CREATE DOCKER IMAGE
+
+
+
+NETWORKS IN DOCKER
+DOCKER COMPOSE
+
+DOCKER CONCEPTS IN DEPTH
+DOCKER FOR WINDOWS/MAC
+DOCKER SWARM
+DOCKER VERSUS KUBERNETES
+#after pull repo have composer install
+#traits file
+keyfile 
+scope
